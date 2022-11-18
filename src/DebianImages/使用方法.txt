@@ -1,0 +1,12 @@
+使用方法：
+
+1.导入镜像
+docker load -i xxx\v11.5\debian-11.5.tar.gz
+
+docker load -i xxx\v11.5\debian-11.5-slim.tar.gz
+
+
+
+PS：可以直接执行 LoadImage.cmd 批处理文件自动导入镜像。
+
+NOTE：默认导入 v11.5 版本的基础 Debian 镜像，如导入其它版本，请自行修改文件中的目录名称。
