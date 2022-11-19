@@ -13,7 +13,7 @@
 
 
 # 基础镜像，当不存在匹配镜像时，将自动下载。
-FROM debian:11.5 AS base
+FROM debian:11.5-slim AS base
 
 # 镜像维护者
 LABEL maintainer="cockroach888@outlook.com"
