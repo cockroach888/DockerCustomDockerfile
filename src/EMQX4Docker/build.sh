@@ -8,15 +8,18 @@ set -e
 #             -c [arm64 | aarch64 | x64 | amd64]
 #             -n [version number]
 #             -f [package file]
+#             -s [true is use slim | false is not]
 
 # set parameters by default value
 cpuType=""
 cpuTypeAlias=""
 version=""
 pkgFile=""
+slimFlag="false"
+slimFlagAlias=""
 
 
-while getopts "hc:n:f:" arg
+while getopts "hc:n:f:s:" arg
 do
   case $arg in
     c)
@@ -31,10 +34,15 @@ do
       #echo "pkgFile=$OPTARG"
       pkgFile=$(echo $OPTARG)
       ;;
+    s)
+      #echo "slimFlag=$OPTARG"
+      slimFlag=$(echo $OPTARG)
+      ;;
     h)
       echo "Usage: `basename $0`  -c [arm64 | aarch64 | x64 | amd64] "
       echo "                      -n [version number] "
       echo "                      -f [package file] "
+      echo "                      -s [true is use slim | false is not] "
       exit 0
       ;;
     ?) #unknow option 
@@ -45,7 +53,14 @@ do
 done
 
 
-dockername=${cpuType}
+if [ "${slimFlag}" == "true" ]; then
+  slimFlagAlias="-slim"
+fi
+
+
+dockername=${cpuType}${slimFlagAlias}
+dockerFileName="Dockerfile${slimFlagAlias}"
+
 rm -rf ./setup/
 mkdir ./setup/
 cp -f /D/Software/EMQX/v${version}/${pkgFile}  ./setup/
@@ -66,6 +81,6 @@ else
 fi
 
 
-docker build --rm -f "Dockerfile" --network=host -t emqx/emqx:${version}-${dockername} "." --build-arg FILENAME=${pkgFile} --build-arg CPUTYPE=${cpuTypeAlias}
+docker build --rm -f ${dockerFileName} --network=host -t emqx/emqx:${version}-${dockername} "." --build-arg FILENAME=${pkgFile} --build-arg CPUTYPE=${cpuTypeAlias}
 
 rm -rf ./setup/

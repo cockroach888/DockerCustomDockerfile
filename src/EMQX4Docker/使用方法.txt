@@ -1,20 +1,24 @@
 使用方法：
 
-1.在 build.sh 脚本的第 49 行处，需要修改为 EMQX 软件包的所在位置。
+1.在 build.sh 脚本的第 66 行处，需要修改为 EMQX 软件包的所在位置。
+  PS: cp -f /D/Software/EMQX/v${version}/${pkgFile}  ./setup/
   NOTE: 软件包位置，最好全部为英文路径，不要包含任何中文字样，年轻人要听话！
 
 2.自定义 Dockerfile 文件，以及使用 Debian 软件包安装。
 		--- AMD64 ---
 ./build.sh -c amd64 -n 5.0.10 -f emqx-5.0.10-otp24.2.1-1-debian11-amd64.deb
+./build.sh -c amd64 -n 5.0.10 -f emqx-5.0.10-otp24.2.1-1-debian11-amd64.deb -s true
 
 		--- ARM64 ---
 ./build.sh -c arm64 -n 5.0.10 -f emqx-5.0.10-otp24.2.1-1-debian11-arm64.deb
 
 3.导出镜像
 docker save emqx/emqx:5.0.10-amd64 | gzip > /D/data/DockerImages/emqx-5.0.10-amd64.tar.gz
+docker save emqx/emqx:5.0.10-amd64-slim | gzip > /D/data/DockerImages/emqx-5.0.10-amd64-slim.tar.gz
 
 4.导入镜像
 docker load -i D:\data\DockerImages\emqx-5.0.10-amd64.tar.gz
+docker load -i D:\data\DockerImages\emqx-5.0.10-amd64-slim.tar.gz
 
 
 

@@ -8,7 +8,9 @@ set basedir
 @echo\&echo ===== «Â¿Ì EMQX Docker æµœÒ£®EMQXService£©=====
 
 docker rmi emqx/emqx:5.0.10-amd64
+docker rmi emqx/emqx:5.0.10-amd64-slim
 ::docker rmi emqx/emqx:5.0.10-arm64
+::docker rmi emqx/emqx:5.0.10-arm64-slim
 
 
 
