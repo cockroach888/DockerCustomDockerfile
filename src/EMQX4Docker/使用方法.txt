@@ -11,6 +11,7 @@
 
 		--- ARM64 ---
 ./build.sh -c arm64 -n 5.0.10 -f emqx-5.0.10-otp24.2.1-1-debian11-arm64.deb
+./build.sh -c arm64 -n 5.0.10 -f emqx-5.0.10-otp24.2.1-1-debian11-arm64.deb -s true
 
 3.导出镜像
 docker save emqx/emqx:5.0.10-amd64 | gzip > /D/data/DockerImages/emqx-5.0.10-amd64.tar.gz
