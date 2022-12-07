@@ -1,30 +1,45 @@
+PS：可以使用 git bash 来执行 shell 脚本。
+
+*************************************************************************************
+*** 注意 *** Windows 与 Linux 的对齐标志是不一样的，所以一定要注意脚本文件的设置。***
+*************************************************************************************
+
+
 使用方法：
+
+==================== AMD64 ====================
 
 1.在 build.sh 脚本的第 66 行处，需要修改为 TDEngine 软件包的所在位置。
   PS: cp -f /D/Software/TDengine/v${version}/${pkgFile}  ./setup/
   NOTE: 软件包位置，最好全部为英文路径，不要包含任何中文字样，年轻人要听话！
 
 2.自定义 Dockerfile 文件，以及使用 Debian 软件包安装。
-		--- AMD64 ---
-./build.sh -c amd64 -n 3.0.1.7 -f TDengine-server-3.0.1.7-Linux-x64.deb
-./build.sh -c amd64 -n 3.0.1.7 -f TDengine-server-3.0.1.7-Linux-x64.deb -s true
-
-		--- ARM64 ---
-./build.sh -c aarch64 -n 3.0.1.7 -f TDengine-server-3.0.1.7-Linux-x64.deb
-./build.sh -c aarch64 -n 3.0.1.7 -f TDengine-server-3.0.1.7-Linux-x64.deb -s true
+./build.sh -c amd64 -n 3.0.1.8 -f TDengine-server-3.0.1.8-Linux-x64.deb
+./build.sh -c amd64 -n 3.0.1.8 -f TDengine-server-3.0.1.8-Linux-x64.deb -s true
 
 3.导出镜像
-docker save tdengine/tdengine-amd64:3.0.1.7 | gzip > /D/data/DockerImages/tdengine-amd64-3.0.1.7.tar.gz
-docker save tdengine/tdengine-amd64-slim:3.0.1.7 | gzip > /D/data/DockerImages/tdengine-amd64-slim-3.0.1.7.tar.gz
+docker save tdengine/tdengine-amd64:3.0.1.8 | gzip > /D/data/DockerImages/tdengine-amd64-3.0.1.8.tar.gz
+docker save tdengine/tdengine-amd64-slim:3.0.1.8 | gzip > /D/data/DockerImages/tdengine-amd64-slim-3.0.1.8.tar.gz
 
 4.导入镜像
-docker load -i D:\data\DockerImages\tdengine-amd64-3.0.1.7.tar.gz
-docker load -i D:\data\DockerImages\tdengine-amd64-slim-3.0.1.7.tar.gz
+docker load -i D:\data\DockerImages\tdengine-amd64-3.0.1.8.tar.gz
+docker load -i D:\data\DockerImages\tdengine-amd64-slim-3.0.1.8.tar.gz
 
 
+==================== ARM64 ====================
 
-PS：可以使用 git bash 来执行 shell 脚本。
+1.在 build.sh 脚本的第 66 行处，需要修改为 TDEngine 软件包的所在位置。
+  PS: cp -f /D/Software/TDengine/v${version}/${pkgFile}  ./setup/
+  NOTE: 软件包位置，最好全部为英文路径，不要包含任何中文字样，年轻人要听话！
 
-*************************************************************************************
-*** 注意 *** Windows 与 Linux 的对齐标志是不一样的，所以一定要注意脚本文件的设置。***
-*************************************************************************************
+2.自定义 Dockerfile 文件，以及使用 Debian 软件包安装。
+./build.sh -c aarch64 -n 3.0.1.8 -f TDengine-server-3.0.1.8-Linux-x64.deb
+./build.sh -c aarch64 -n 3.0.1.8 -f TDengine-server-3.0.1.8-Linux-x64.deb -s true
+
+3.导出镜像
+docker save tdengine/tdengine-arm64:3.0.1.8 | gzip > /D/data/DockerImages/tdengine-arm64-3.0.1.8.tar.gz
+docker save tdengine/tdengine-arm64-slim:3.0.1.8 | gzip > /D/data/DockerImages/tdengine-arm64-slim-3.0.1.8.tar.gz
+
+4.导入镜像
+docker load -i D:\data\DockerImages\tdengine-arm64-3.0.1.8.tar.gz
+docker load -i D:\data\DockerImages\tdengine-arm64-slim-3.0.1.8.tar.gz
