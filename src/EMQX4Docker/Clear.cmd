@@ -10,10 +10,10 @@ set basedir
 docker stop EMQXService
 docker rm -v EMQXService
 
-docker rmi emqx/emqx:5.0.10-amd64
-docker rmi emqx/emqx:5.0.10-amd64-slim
-::docker rmi emqx/emqx:5.0.10-arm64
-::docker rmi emqx/emqx:5.0.10-arm64-slim
+docker rmi emqx/emqx:5.0.11-amd64
+docker rmi emqx/emqx:5.0.11-amd64-slim
+::docker rmi emqx/emqx:5.0.11-arm64
+::docker rmi emqx/emqx:5.0.11-arm64-slim
 
 
 
