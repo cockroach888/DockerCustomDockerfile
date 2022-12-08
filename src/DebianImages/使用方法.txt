@@ -1,9 +1,26 @@
 使用方法：
 
-1.导入镜像
-docker load -i xxx\v11.5\debian-11.5.tar.gz
+1.导出镜像
+docker save debian:11.5 | gzip > /D/data/DockerImages/debian-11.5.tar.gz
+docker save debian:11.5-slim | gzip > /D/data/DockerImages/debian-11.5-slim.tar.gz
 
+docker save amd64/debian:11.5 | gzip > /D/data/DockerImages/debian-11.5-amd64.tar.gz
+docker save amd64/debian:11.5-slim | gzip > /D/data/DockerImages/debian-11.5-amd64-slim.tar.gz
+
+docker save arm64v8/debian:11.5 | gzip > /D/data/DockerImages/debian-11.5-arm64v8.tar.gz
+docker save arm64v8/debian:11.5-slim | gzip > /D/data/DockerImages/debian-11.5-arm64v8-slim.tar.gz
+
+
+
+2.导入镜像
+docker load -i xxx\v11.5\debian-11.5.tar.gz
 docker load -i xxx\v11.5\debian-11.5-slim.tar.gz
+
+docker load -i xxx\v11.5\debian-11.5-amd64.tar.gz
+docker load -i xxx\v11.5\debian-11.5-amd64-slim.tar.gz
+
+docker load -i xxx\v11.5\debian-11.5-arm64v8.tar.gz
+docker load -i xxx\v11.5\debian-11.5-arm64v8-slim.tar.gz
 
 
 
