@@ -14,16 +14,16 @@ PS：可以使用 git bash 来执行 shell 脚本。
   NOTE: 软件包位置，最好全部为英文路径，不要包含任何中文字样，年轻人要听话！
 
 2.自定义 Dockerfile 文件，以及使用 Debian 软件包安装。
-./build.sh -c amd64 -n 5.0.11 -f emqx-5.0.11-debian11-amd64.deb
-./build.sh -c amd64 -n 5.0.11 -f emqx-5.0.11-debian11-amd64.deb -s true
+./build.sh -c amd64 -n 5.0.12 -f emqx-5.0.12-debian11-amd64.deb
+./build.sh -c amd64 -n 5.0.12 -f emqx-5.0.12-debian11-amd64.deb -s true
 
 3.导出镜像
-docker save emqx/emqx:5.0.11-amd64 | gzip > /D/data/DockerImages/emqx-5.0.11-amd64.tar.gz
-docker save emqx/emqx:5.0.11-amd64-slim | gzip > /D/data/DockerImages/emqx-5.0.11-amd64-slim.tar.gz
+docker save emqx/emqx:5.0.12-amd64 | gzip > /D/data/DockerImages/emqx-5.0.12-amd64.tar.gz
+docker save emqx/emqx:5.0.12-amd64-slim | gzip > /D/data/DockerImages/emqx-5.0.12-amd64-slim.tar.gz
 
 4.导入镜像
-docker load -i D:\data\DockerImages\emqx-5.0.11-amd64.tar.gz
-docker load -i D:\data\DockerImages\emqx-5.0.11-amd64-slim.tar.gz
+docker load -i D:\data\DockerImages\emqx-5.0.12-amd64.tar.gz
+docker load -i D:\data\DockerImages\emqx-5.0.12-amd64-slim.tar.gz
 
 
 ==================== ARM64 ====================
@@ -33,13 +33,13 @@ docker load -i D:\data\DockerImages\emqx-5.0.11-amd64-slim.tar.gz
   NOTE: 软件包位置，最好全部为英文路径，不要包含任何中文字样，年轻人要听话！
 
 2.自定义 Dockerfile 文件，以及使用 Debian 软件包安装。
-./build.sh -c arm64 -n 5.0.11 -f emqx-5.0.11-debian11-arm64.deb
-./build.sh -c arm64 -n 5.0.11 -f emqx-5.0.11-debian11-arm64.deb -s true
+./build.sh -c arm64 -n 5.0.12 -f emqx-5.0.12-debian11-arm64.deb
+./build.sh -c arm64 -n 5.0.12 -f emqx-5.0.12-debian11-arm64.deb -s true
 
 3.导出镜像
-docker save emqx/emqx:5.0.11-arm64 | gzip > /D/data/DockerImages/emqx-5.0.11-arm64.tar.gz
-docker save emqx/emqx:5.0.11-arm64-slim | gzip > /D/data/DockerImages/emqx-5.0.11-arm64-slim.tar.gz
+docker save emqx/emqx:5.0.12-arm64 | gzip > /D/data/DockerImages/emqx-5.0.12-arm64.tar.gz
+docker save emqx/emqx:5.0.12-arm64-slim | gzip > /D/data/DockerImages/emqx-5.0.12-arm64-slim.tar.gz
 
 4.导入镜像
-docker load -i D:\data\DockerImages\emqx-5.0.11-arm64.tar.gz
-docker load -i D:\data\DockerImages\emqx-5.0.11-arm64-slim.tar.gz
+docker load -i D:\data\DockerImages\emqx-5.0.12-arm64.tar.gz
+docker load -i D:\data\DockerImages\emqx-5.0.12-arm64-slim.tar.gz
