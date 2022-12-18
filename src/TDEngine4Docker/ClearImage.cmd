@@ -7,10 +7,10 @@ set basedir
 
 @echo\&echo ===== ÇåÀí TDengine 3.x Docker ¾µÏñ£¨TDengineService£©=====
 
-docker rmi tdengine/tdengine-amd64:3.0.1.8
-docker rmi tdengine/tdengine-amd64-slim:3.0.1.8
-::docker rmi tdengine/tdengine-aarch64:3.0.1.8
-::docker rmi tdengine/tdengine-aarch64-slim:3.0.1.8
+docker rmi tdengine/tdengine-amd64:3.0.2.0
+docker rmi tdengine/tdengine-amd64-slim:3.0.2.0
+::docker rmi tdengine/tdengine-aarch64:3.0.2.0
+::docker rmi tdengine/tdengine-aarch64-slim:3.0.2.0
 
 
 
