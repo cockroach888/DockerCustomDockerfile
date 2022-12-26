@@ -10,7 +10,7 @@ set basedir
 docker stop TDengineService
 docker rm -v TDengineService
 
-docker create --name TDengineService -h TDengineServer -e TAOS_FQDN=TDengineServer --restart=always -p 10100:6030 -p 10101:6041 -v d:\\data\taos3\data:/var/lib/taos -v d:\\data\taos3\log:/var/log/taos -v d:\\data\taos3\taos.cfg:/etc/taos/taos.cfg -v d:\\data\taos3\taosadapter.toml:/etc/taos/taosadapter.toml tdengine/tdengine-amd64-slim:3.0.2.0
+docker create --name TDengineService -h TDengineServer -e TAOS_FQDN=TDengineServer --restart=always -p 10100:6030 -p 10101:6041 -v d:\\data\taos3\data:/var/lib/taos -v d:\\data\taos3\log:/var/log/taos -v d:\\data\taos3\taos.cfg:/etc/taos/taos.cfg -v d:\\data\taos3\taosadapter.toml:/etc/taos/taosadapter.toml tdengine/tdengine-amd64-slim:3.0.2.1
 
 docker start TDengineService
 
