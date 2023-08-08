@@ -7,10 +7,10 @@ set basedir
 
 @echo\&echo ===== µ¼Èë Debian »ù´¡¾µÏñ =====
 
-cd /d "%basedir%\v11.5"
+cd /d "%basedir%\v12.1"
 
-docker load -i debian-11.5.tar.gz
-docker load -i debian-11.5-slim.tar.gz
+docker load -i debian-12.1.tar.gz
+docker load -i debian-12.1-slim.tar.gz
 
 
 
