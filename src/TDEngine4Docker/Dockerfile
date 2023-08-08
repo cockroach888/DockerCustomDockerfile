@@ -13,8 +13,7 @@
 
 
 # 基础镜像，当不存在匹配镜像时，将自动下载。
-#FROM debian:11.5 AS base
-FROM amd64/debian:11.5 AS base
+FROM debian:11.7 AS base
 
 # 镜像维护者
 LABEL maintainer="cockroach888@outlook.com"
@@ -29,28 +28,8 @@ WORKDIR /setup
 
 # 参数定义
 ARG FILENAME
-ARG CPUTYPE
-RUN echo ${FILENAME} && echo ${CPUTYPE}
+RUN echo ${FILENAME}
 
-
-ARG LIBNCURSES6="libncurses6_6.2+20201114-2_${CPUTYPE}.deb"
-ARG LIBNCURSESW6="libncursesw6_6.2+20201114-2_${CPUTYPE}.deb"
-ARG LIBPROCPS8="libprocps8_3.3.17-5_${CPUTYPE}.deb"
-ARG LIBMD0="libmd0_1.0.3-3_${CPUTYPE}.deb"
-ARG LIBBSD0="libbsd0_0.11.3-1_${CPUTYPE}.deb"
-ARG LIBCL10N="libc-l10n_2.31-13+deb11u4_all.deb"
-
-ARG ARG2HTTPS="apt-transport-https_2.2.4_all.deb"
-ARG ARG2SSL="openssl_1.1.1n-0+deb11u3_${CPUTYPE}.deb"
-ARG ARG2CA="ca-certificates_20210119_all.deb"
-
-ARG ARG2TINI="tini_0.19.0-1_${CPUTYPE}.deb"
-ARG ARG2PS="procps_3.3.17-5_${CPUTYPE}.deb"
-ARG ARG2OPENBSD="netcat-openbsd_1.217-3_amd64.deb"
-ARG ARG2NETCAT="netcat_1.10-46_all.deb"
-
-ARG ARG2LOCALES="locales_2.31-13+deb11u4_all.deb"
-ARG ARG2TZDATA="tzdata_2021a-1+deb11u5_all.deb"
 
 
 # 复制安装包到容器目录
@@ -61,39 +40,12 @@ COPY ./setup/* /setup/
 RUN dpkg -i ${FILENAME}
 
 
-# 安装依赖库
-RUN dpkg -i ${LIBNCURSES6} && dpkg -i ${LIBNCURSESW6} && dpkg -i ${LIBPROCPS8} && dpkg -i ${LIBMD0} && dpkg -i ${LIBBSD0} && dpkg -i ${LIBCL10N}
-
-
-# 安装 HTTPS
-RUN dpkg -i ${ARG2HTTPS}
-
-# 安装 OpenSSL
-RUN dpkg -i ${ARG2SSL}
-
-# 安装 CA证书
-RUN dpkg -i ${ARG2CA}
-
-
-# 安装 Tini
-RUN dpkg -i ${ARG2TINI}
-
-# 安装进程查看
-RUN dpkg -i ${ARG2PS}
-
-# 安装网络连接工具
-RUN dpkg -i ${ARG2OPENBSD} && dpkg -i ${ARG2NETCAT}
-
-
-# 安装国际化
-RUN dpkg -i ${ARG2LOCALES}
-
-# 安装时钟同步
-RUN dpkg -i ${ARG2TZDATA}
-
-
 # 更新系统
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 /tini
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y locales tzdata netcat curl gdb vim tmux less net-tools valgrind
 
 # 配置国际化、清理
 RUN locale-gen en_US.UTF-8 && apt-get clean && rm -rf /setup/* && rm -rf /var/lib/apt/lists/*
@@ -109,13 +61,14 @@ ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib" \
 COPY ./bin/* /usr/bin/
 
 # 为脚本添加权限
-RUN chmod +x /usr/bin/docker-entrypoint.sh
-
-# 添加磁盘卷
-VOLUME ["/var/lib/taos", "/var/log/taos", "/corefile"]
+RUN chmod +x /tini
+RUN chmod +x /usr/bin/entrypoint.sh
 
 # 容器入口点
-ENTRYPOINT ["/usr/bin/tini", "-s", "--", "/usr/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/tini", "--", "/usr/bin/entrypoint.sh"]
 
 # 执行命令
 CMD ["taosd"]
+
+# 添加磁盘卷
+VOLUME [ "/var/lib/taos", "/var/log/taos", "/corefile" ]

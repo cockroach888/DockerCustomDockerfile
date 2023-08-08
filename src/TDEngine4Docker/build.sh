@@ -5,27 +5,20 @@ set -e
 #set -x
 
 # build.sh 
-#             -c [arm64 | aarch64 | x64 | amd64]
 #             -n [version number]
 #             -f [package file]
 #             -s [true is use slim | false is not]
 
 # set parameters by default value
-cpuType=""
-cpuTypeAlias=""
 version=""
 pkgFile=""
 slimFlag="false"
 slimFlagAlias=""
 
 
-while getopts "hc:n:f:s:" arg
+while getopts "hn:f:s:" arg
 do
   case $arg in
-    c)
-      #echo "cpuType=$OPTARG"
-      cpuType=$(echo $OPTARG)
-      ;;
     n)
       #echo "version=$OPTARG"
       version=$(echo $OPTARG)
@@ -39,8 +32,7 @@ do
       slimFlag=$(echo $OPTARG)
       ;;
     h)
-      echo "Usage: `basename $0`  -c [arm64 | aarch64 | x64 | amd64] "
-      echo "                      -n [version number] "
+      echo "Usage: `basename $0`  -n [version number] "
       echo "                      -f [package file] "
       echo "                      -s [true is use slim | false is not] "
       exit 0
@@ -58,7 +50,7 @@ if [ "${slimFlag}" == "true" ]; then
 fi
 
 
-dockername=${cpuType}${slimFlagAlias}
+dockername=${slimFlagAlias}
 dockerFileName="Dockerfile${slimFlagAlias}"
 
 rm -rf ./setup/
@@ -67,20 +59,10 @@ cp -f /D/Software/TDengine/v${version}/${pkgFile}  ./setup/
 cp ../refs/* ./setup/
 
 
-echo "cpuType=${cpuType} version=${version} pkgFile=${pkgFile}"
+echo "version=${version} pkgFile=${pkgFile}"
 echo "====NOTES: ${pkgFile} must be in the same directory as build.sh===="
 
 
-if [[ "${cpuType}" == "x64" ]] || [[ "${cpuType}" == "amd64" ]]; then
-    cpuTypeAlias="amd64"
-elif [[ "${cpuType}" == "aarch64" ]] || [[ "${cpuType}" == "arm64" ]]; then
-    cpuTypeAlias="arm64"
-else
-    echo "Unknown cpuType: ${cpuType}"
-    exit 1
-fi
-
-
-docker build --rm -f ${dockerFileName} --network=host -t tdengine/tdengine-${dockername}:${version} "." --build-arg FILENAME=${pkgFile} --build-arg CPUTYPE=${cpuTypeAlias}
+docker build --rm -f ${dockerFileName} --network=host -t tdengine/tdengine${dockername}:${version} "." --build-arg FILENAME=${pkgFile}
 
 rm -rf ./setup/
